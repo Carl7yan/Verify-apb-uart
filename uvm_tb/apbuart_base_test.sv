@@ -3,7 +3,6 @@ class apbuart_base_test extends uvm_test;
 
    	apbuart_env 	env_sq;
 	uart_config	cfg;
-	clk_rst_cfg   	clk_cfg;
 	apb_config	apb_cfg;
 
   	function new (string name="apbuart_base_test", uvm_component parent = null);
@@ -23,8 +22,6 @@ endclass
 		env_sq = apbuart_env::type_id::create("env_sq",this);	
 		cfg = new();
 		uvm_config_db#(uart_config)::set(this,"*","cfg",cfg);
-		clk_cfg = new();
-		uvm_config_db#(clk_rst_cfg)::set(this,"*","clk_cfg",clk_cfg);
 		set_config_params(9600,8,3,1,0); // Baud Rate , Frame Len , Parity , Stop Bit , Randomize Flag (1 for random , 0 for directed)
 		apb_cfg = new();
 		uvm_config_db#(apb_config)::set(this,"*","apb_cfg",apb_cfg);
