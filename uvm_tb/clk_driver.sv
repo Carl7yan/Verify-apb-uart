@@ -8,28 +8,8 @@ class clk_rst_driver extends uvm_driver#(clk_rst_seq_item);
   realtime t_low   = 1;
   realtime t_reset = 1;
 
-  `uvm_component_utils_begin(clk_rst_driver)
-  `uvm_component_utils_end
 
-  function new(string name = "clk_rst_driver", uvm_component parent = null);
-    super.new(name, parent);
-    if (parent == null) begin
-      `uvm_fatal("new", "Null parent is not legal for this component")
-    end
-  endfunction
 
-  virtual function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
-    if(!uvm_config_db#(clk_rst_cfg)::get(this, "", "clk_cfg", clk_cfg))
-      `uvm_fatal("NOCONFIG", {"Config object must be set for: ", get_full_name(), ".clk_cfg"})
-    if(!uvm_config_db#(virtual clk_rst_interface)::get(this, "", "vifclk", vifclk))
-      `uvm_fatal("NOVIF", {"Virtual interface must be set for: ", get_full_name(), ".vifclk"})
-    this.init_from_cfg();
-  endfunction
-
-  virtual function void connect_phase(uvm_phase phase);
-    super.connect_phase(phase);
-  endfunction
 
   // Initializes the driver from the config object
   function void init_from_cfg();
