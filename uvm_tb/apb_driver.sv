@@ -58,17 +58,9 @@ endclass
 
   	task apb_driver::drive(apb_transaction req);
 		`DRIVAPB_IF.PSELx			  <= apb_cfg.psel_Index;
-  	  	`DRIVAPB_IF.PWRITE			  <= req.PWRITE;
-		if(req.PADDR == cfg.baud_config_addr)
-			`DRIVAPB_IF.PWDATA			<= cfg.bRate;
-		else if (req.PADDR == cfg.frame_config_addr)
-			`DRIVAPB_IF.PWDATA			<= cfg.frame_len;
-		else if (req.PADDR == cfg.parity_config_addr)
-		  	`DRIVAPB_IF.PWDATA			<= cfg.parity;
-		else if (req.PADDR == cfg.stop_bits_config_addr)
-		  	`DRIVAPB_IF.PWDATA			<= cfg.n_sb;
-		else
-		  	`DRIVAPB_IF.PWDATA			<= req.PWDATA;
+  	  	`DRIVAPB_IF. 			  <= req.PWRITE;
+
+		`DRIVAPB_IF.PWDATA			<= req.PWDATA;
   	 	`DRIVAPB_IF.PADDR			    	<= req.PADDR;
 
 		@(posedge vifapb.PCLK);
