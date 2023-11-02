@@ -3,7 +3,6 @@ class apbuart_rec_drv_test extends apbuart_base_test;
 
     apbuart_config_seq      apbuart_confg_sq;
     apbuart_recdrv_seq 	    apbuart_drv_sq;
-    clk_rst_default_seq 	clk_seq; //
 
     function new (string name, uvm_component parent= null);
       	super.new(name, parent);
