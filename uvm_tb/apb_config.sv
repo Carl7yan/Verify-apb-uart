@@ -20,9 +20,6 @@ class apb_config extends uvm_object;
         `uvm_field_enum(uvm_active_passive_enum, is_active, UVM_ALL_ON)
     `uvm_object_utils_end
 
-    //  Group: Constraints
-    constraint addr_cst {slave_Addr inside {[0:5]};}
-
     //  Group: Functions
     function void AddrCalcFunc();
         if ((slave_Addr >= ` UART_START_ADDR) && (slave_Addr <= ` UART_END_ADDR))
