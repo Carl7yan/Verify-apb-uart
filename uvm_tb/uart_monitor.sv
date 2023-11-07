@@ -1,47 +1,9 @@
-`define MONUART_IF vifuart.MONITOR.monitor_cb
-
-class uart_monitor extends uvm_monitor;
-	`uvm_component_utils(uart_monitor)
-
-  	virtual uart_if 			vifuart;
-
-  	uart_config 	cfg;
-  	uvm_analysis_port #(uart_transaction) item_collected_port_mon;
-  	uart_transaction trans_collected;
 
 	  logic [6:0] 	count,count1;
 	  logic [31:0] 	receive_reg;
 	  logic [6:0] 	LT;
-	  logic 			parity_en;
+	  logic 	parity_en;
 
-  	function new (string name, uvm_component parent);
-  	  	super.new(name, parent);
-  	  	trans_collected = new();
-  	  	item_collected_port_mon = new("item_collected_port_mon", this);
-  	endfunction : new
-
-	  extern virtual function void build_phase(uvm_phase phase);
-	  extern virtual function void cfg_settings();
-	  extern virtual task monitor_and_send();
-	  extern virtual task run_phase(uvm_phase phase);
-endclass
-
-function void uart_monitor::build_phase(uvm_phase phase);
-	super.build_phase(phase);
-	if(!uvm_config_db#(uart_config)::get(this, "", "cfg", cfg))
-		`uvm_fatal("No cfg",{"Configuration must be set for: ",get_full_name(),".cfg"});
-  if(!uvm_config_db#(virtual uart_if)::get(this, "", "vifuart", vifuart))
-   	`uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vifuart"});
-endfunction: build_phase
-
-task uart_monitor::run_phase(uvm_phase phase);
-	super.run_phase(phase);
-	forever begin
-		@(posedge vifuart.PCLK);
-		cfg_settings(); // extracting parity enable (parity_en) and loop time (LT).
-		monitor_and_send();
-	end
-endtask : run_phase
 
 function void uart_monitor::cfg_settings();
 	parity_en=cfg.parity[1];
